@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../model/register");
+const User = require("../model/user");
 const bcrypt = require("bcrypt");
-const emailvalidator = require("email-validator");
+
+const emailRegex = /[@gmail.com|@yahoo.co.in|@yahoo.com\@iiitvadodara.ac.in]$/
+
 
 router.post("/", async (req, res) => {
   try {
     const { userName, email, password } = req.body;
 
-    if (!emailvalidator.validate(email)) {
-      return res.status(400).json({ error: "invalid email" });
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "this email format is not accepted" });
     }
     const existingUser = await User.findOne({ userName, email });
 
