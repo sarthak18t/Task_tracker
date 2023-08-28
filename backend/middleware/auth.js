@@ -8,12 +8,12 @@ const auth = async (req, res, next) => {
             req.payload = payload;
             next();
         } else {
-            return res.status(401).send({
-                message: "Unauthorized"
+            return res.status(401).json({
+                message: "no user logged in"
             });
         }
     } catch (error) {
-        res.status(401).send({
+        res.status(401).json({
             message: "Error in auth",
             error
         });

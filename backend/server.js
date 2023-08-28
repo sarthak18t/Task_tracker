@@ -1,22 +1,26 @@
-const express = require('express');
-const env = require('dotenv');
+const express = require("express");
+const env = require("dotenv");
 env.config();
-const connect = require('./db/conn')
-const registerRouter = require('./routes/registerRouter')
-const loginRouter = require('./routes/loginRouter')
-const logoutRouter = require('./routes/logoutRouter')
+const connect = require("./db/conn");
+const registerRouter = require("./routes/registerRouter");
+const loginRouter = require("./routes/loginRouter");
+const logoutRouter = require("./routes/logoutRouter");
+const taskRouter = require("./routes/tasks/taskRouter");
 const app = express();
 
-app.use(express.json());
-app.use('/register',registerRouter)
-app.use('/login',loginRouter)
-app.use('/logout',logoutRouter)
-app.get('/',(req,res)=>{
-    res.send("hello");
-})
+connect().then(() => {
+  app.use(express.json());
 
-const port = 3000;
-app.listen(port,()=>{
-    connect()
-    console.log('server is up and running')
-})
+  // users registration and login logout 
+  app.use("/register", registerRouter);
+  app.use("/login", loginRouter);
+  app.use("/logout", logoutRouter);
+
+  //task endpoints
+  app.use("/task",taskRouter);
+
+  const port = 3000;
+  app.listen(port, () => {
+    console.log("server is up and running");
+  });
+});
