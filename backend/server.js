@@ -1,5 +1,6 @@
 const express = require("express");
 const env = require("dotenv");
+const cors = require("cors");
 env.config();
 const connect = require("./db/conn");
 const registerRouter = require("./routes/registerRouter");
@@ -8,9 +9,13 @@ const logoutRouter = require("./routes/logoutRouter");
 const taskRouter = require("./routes/tasks/taskRouter");
 const app = express();
 
-connect().then(() => {
-  app.use(express.json());
+app.use(express.json());
+app.use(cors());
 
+app.get("/",(req,res)=>{
+  res.send("hello world");
+})
+connect().then(() => {
   // users registration and login logout 
   app.use("/register", registerRouter);
   app.use("/login", loginRouter);
@@ -19,8 +24,8 @@ connect().then(() => {
   //task endpoints
   app.use("/task",taskRouter);
 
-  const port = 5000;
+  const port = 3001;
   app.listen(port, () => {
-    console.log("server is up and running");
+    console.log(`server is up and running ${port}`);
   });
 });

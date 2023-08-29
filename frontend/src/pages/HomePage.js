@@ -9,11 +9,13 @@ import {
   MDBBtn,
   MDBIcon,
   MDBInput,
-  MDBCheckbox,
 } from "mdb-react-ui-kit";
 
 const HomePage = () => {
   const [justifyActive, setJustifyActive] = useState("tab1");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -22,7 +24,51 @@ const HomePage = () => {
 
     setJustifyActive(value);
   };
+  const handleSignIn = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
+    var raw = JSON.stringify({
+      email: email,
+      password: password,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:3001/login", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      userName: userName,
+      email: email,
+      password: password,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:3001/register", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
   return (
     <div>
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
@@ -73,20 +119,25 @@ const HomePage = () => {
 
             <MDBInput
               wrapperClass="mb-4"
-              label="Email address"
+              placeholder="Email address"
               id="form1"
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <MDBInput
               wrapperClass="mb-4"
-              label="Password"
+              placeholder="Password"
               id="form2"
               type="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
 
-            <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
+            <MDBBtn className="mb-4 w-100" onClick={handleSignIn}>
+              Sign in
+            </MDBBtn>
             <p className="text-center">
-              Not a member? <a href="#!">Register</a>
+              Not a member?{" "}
+              <button onClick={() => setJustifyActive("tab2")}>Register</button>
             </p>
           </MDBTabsPane>
 
@@ -113,32 +164,28 @@ const HomePage = () => {
 
             <MDBInput
               wrapperClass="mb-4"
-              label="Username"
+              placeholder="Username"
               id="form1"
               type="text"
+              onChange={(e) => setUserName(e.target.value)}
             />
             <MDBInput
               wrapperClass="mb-4"
-              label="Email"
+              placeholder="Email"
               id="form1"
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <MDBInput
               wrapperClass="mb-4"
-              label="Password"
+              placeholder="Password"
               id="form1"
               type="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-
-            <div className="d-flex justify-content-center mb-4">
-              <MDBCheckbox
-                name="flexCheck"
-                id="flexCheckDefault"
-                label="I have read and agree to the terms"
-              />
-            </div>
-
-            <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+            <MDBBtn className="mb-4 w-100" onClick={handleRegister}>
+              Sign up
+            </MDBBtn>
           </MDBTabsPane>
         </MDBTabsContent>
       </MDBContainer>
