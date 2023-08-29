@@ -1,29 +1,15 @@
 import React, { useState } from "react";
-import {
-  MDBContainer,
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
-  MDBTabsContent,
-  MDBTabsPane,
-  MDBBtn,
-  MDBIcon,
-  MDBInput,
-} from "mdb-react-ui-kit";
-
+import "./homepage.css"
 const HomePage = () => {
-  const [justifyActive, setJustifyActive] = useState("tab1");
+  const [activeTab, setActiveTab] = useState("login");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleJustifyClick = (value) => {
-    if (value === justifyActive) {
-      return;
-    }
-
-    setJustifyActive(value);
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
   };
+
   const handleSignIn = async () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -46,7 +32,7 @@ const HomePage = () => {
       .catch((error) => console.log("error", error));
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -64,131 +50,89 @@ const HomePage = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:3001/register", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+    try {
+      const response = await fetch(
+        "http://localhost:3001/register",
+        requestOptions
+      );
+      const result = await response.text();
+      console.log(result);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
+
   return (
-    <div>
-      <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-        <MDBTabs
-          pills
-          justify
-          className="mb-3 d-flex flex-row justify-content-between"
+    <div className="homepage">
+      <div className="tab">
+        <div
+          className={`tab ${activeTab === "login" ? "active" : ""}`}
+          onClick={() => handleTabClick("login")}
         >
-          <MDBTabsItem>
-            <MDBTabsLink
-              onClick={() => handleJustifyClick("tab1")}
-              active={justifyActive === "tab1"}
-            >
-              Login
-            </MDBTabsLink>
-          </MDBTabsItem>
-          <MDBTabsItem>
-            <MDBTabsLink
-              onClick={() => handleJustifyClick("tab2")}
-              active={justifyActive === "tab2"}
-            >
-              Register
-            </MDBTabsLink>
-          </MDBTabsItem>
-        </MDBTabs>
+          Login
+        </div>
+        <div
+          className={`tab ${activeTab === "register" ? "active" : ""}`}
+          onClick={() => handleTabClick("register")}
+        >
+          Register
+        </div>
+      </div>
 
-        <MDBTabsContent>
-          <MDBTabsPane show={justifyActive === "tab1"}>
-            <div className="text-center mb-3">
-              <p>Sign in with:</p>
-
-              <div
-                className="d-flex justify-content-between mx-auto"
-                style={{ width: "40%" }}
-              >
-                <MDBBtn
-                  tag="a"
-                  color="none"
-                  className="m-1"
-                  style={{ color: "#1266f1" }}
-                >
-                  <MDBIcon fab icon="google" size="sm" />
-                </MDBBtn>
-              </div>
-
-              <p className="text-center mt-3">or:</p>
+      <div className="form">
+        {activeTab === "login" && (
+          <div className="form-login">
+            <div className="form-login-google">
+              <p style={{fontWeight:300 , fontSize:"20px"}}>Sign in with:</p>
+              {/* Add your sign-in with social buttons here */}
+              <p style={{fontWeight:300 , fontSize:"16px"}}>or:</p>
             </div>
-
-            <MDBInput
-              wrapperClass="mb-4"
+            <input
               placeholder="Email address"
-              id="form1"
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <MDBInput
-              wrapperClass="mb-4"
+            <input
               placeholder="Password"
-              id="form2"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-
-            <MDBBtn className="mb-4 w-100" onClick={handleSignIn}>
-              Sign in
-            </MDBBtn>
-            <p className="text-center">
+            <button onClick={handleSignIn}>Sign in</button>
+            <p>
               Not a member?{" "}
-              <button onClick={() => setJustifyActive("tab2")}>Register</button>
+              <button style={{marginTop:"5px"}}onClick={() => handleTabClick("register")}>
+                Register
+              </button>
             </p>
-          </MDBTabsPane>
+          </div>
+        )}
 
-          <MDBTabsPane show={justifyActive === "tab2"}>
-            <div className="text-center mb-3">
-              <p>Sign up with:</p>
-
-              <div
-                className="d-flex justify-content-between mx-auto"
-                style={{ width: "40%" }}
-              >
-                <MDBBtn
-                  tag="a"
-                  color="none"
-                  className="m-1"
-                  style={{ color: "#1266f1" }}
-                >
-                  <MDBIcon fab icon="google" size="sm" />
-                </MDBBtn>
-              </div>
-
-              <p className="text-center mt-3">or:</p>
+        {activeTab === "register" && (
+          <div className="form-register">
+            <div className="form-register-google">
+              <p style={{fontWeight:300 , fontSize:"20px"}}>Sign up with:</p>
+              {/* Add your sign-up with social buttons here */}
+              <p style={{fontWeight:300 , fontSize:"16px"}}>or:</p>
             </div>
-
-            <MDBInput
-              wrapperClass="mb-4"
+            <input
               placeholder="Username"
-              id="form1"
               type="text"
               onChange={(e) => setUserName(e.target.value)}
             />
-            <MDBInput
-              wrapperClass="mb-4"
+            <input
               placeholder="Email"
-              id="form1"
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <MDBInput
-              wrapperClass="mb-4"
+            <input
               placeholder="Password"
-              id="form1"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <MDBBtn className="mb-4 w-100" onClick={handleRegister}>
-              Sign up
-            </MDBBtn>
-          </MDBTabsPane>
-        </MDBTabsContent>
-      </MDBContainer>
+            <button onClick={handleRegister}>Sign up</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
