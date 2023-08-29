@@ -19,7 +19,7 @@ connect().then(() => {
   //task endpoints
   app.use("/task",taskRouter);
 
-  const port = 3000;
+  const port = 5000;
   app.listen(port, () => {
     console.log("server is up and running");
   });
