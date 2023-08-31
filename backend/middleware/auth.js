@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
             const token = req.headers.authorization.split(" ")[1];
             const payload = await jwt.verify(token, process.env.SECRET);
             console.log(payload)
-            req.payload = payload;
+            req.id = payload.id;
             next();
         } else {
             return res.status(401).json({
