@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./dashboard.css";
+import HorizontalScrollbar from "../components/HorizontalScrollbar";
 const DashBoard = ({ authenticated, setAuthenticated }) => {
   const [tasks,setTasks] = useState([]);
   useEffect(() => {
@@ -21,15 +22,19 @@ const DashBoard = ({ authenticated, setAuthenticated }) => {
         .then(
           (response) => response.text()
         )
-        .then((result) => setTasks(result))
+        .then((result) => {
+          const parseData = JSON.parse(result)
+          setTasks(parseData.tasks)
+        })
         .catch((error) => console.log("error", error));
-        console.log(tasks)
     }
-  });
+  },[authenticated]);
   return (
     <div>
       {authenticated ? (
-        <div></div>
+        <div>
+          <HorizontalScrollbar tasks={tasks} setTasks={setTasks}/>
+        </div>
       ) : (
         <div className="not-auth">
           <div class="d-flex justify-content-center">

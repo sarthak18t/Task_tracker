@@ -1,0 +1,47 @@
+/* TaskCard.css */
+.card {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+  }
+  
+  .card:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .card-details {
+    flex: 1;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333; /* Text color */
+  }
+  
+  .card-description {
+    font-size: 14px;
+    color: #666; /* Text color */
+  }
+  
+  .card-date {
+    font-size: 12px;
+    color: #888; /* Text color */
+  }
+  
+  .card-priority {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff; /* Text color for priority */
+  }
+  
+  /* Add more styles as needed */
+  

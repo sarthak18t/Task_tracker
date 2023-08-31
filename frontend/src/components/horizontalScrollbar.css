@@ -1,0 +1,49 @@
+.scroll-menu-container {
+  width: 100%;
+  overflow: auto;
+  border-radius: 8px;
+  margin-top: 75px;
+}
+
+.scroll-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  white-space: nowrap;
+  gap: 16px;
+  padding-bottom: 16px;
+}
+
+.scroll-menu-item {
+  flex: 0 0 calc(25% - 16px);
+  max-width: calc(25% - 16px);
+  padding: 16px;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.scroll-menu-item:last-child {
+  margin-right: 0;
+}
+
+.scroll-menu-item:hover {
+  background-color: #e0e0e0;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 920px) {
+  .scroll-menu-item {
+    flex: 0 0 calc(50% - 16px);
+    max-width: calc(50% - 16px);
+  }
+}
+
+@media (max-width: 576px) {
+  .scroll-menu-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
