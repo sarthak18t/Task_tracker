@@ -107,7 +107,7 @@ const HomePage = ({ authenticated, setAuthenticated }) => {
       <div className="form">
         {authenticated ? (
           <div>
-            <Navigate to="/dashboard" />
+            <Navigate to="/" />
           </div>
         ) : (
           <>

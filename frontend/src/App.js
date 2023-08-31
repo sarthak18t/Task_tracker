@@ -10,11 +10,11 @@ function App() {
   const [authenticated, setAuthenticated] = useState(sessionStorage.getItem("auth")!== null);
   return (
     <div className="App">
-      <Navbar  authenticated={authenticated} setAuthenticated={setAuthenticated}/>
+      <Navbar authenticated={authenticated} setAuthenticated={setAuthenticated}/>
      <Router>
       <Routes>
+        <Route path='/' element={<DashBoard authenticated={authenticated} setAuthenticated={setAuthenticated}/>}/>
         <Route path='/login' element={<HomePage authenticated={authenticated} setAuthenticated={setAuthenticated} />}/>
-        <Route path='/dashboard' element={<DashBoard/>}/>
       </Routes>
      </Router>
     </div>

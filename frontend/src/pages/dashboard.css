@@ -1,0 +1,11 @@
+.not-auth{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+.not-auth h1{
+    margin-top: 10px;
+    font-weight: 400;
+}

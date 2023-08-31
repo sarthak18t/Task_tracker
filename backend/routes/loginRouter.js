@@ -3,9 +3,7 @@ const User = require('../model/user');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
-const cors = require('cors');
 
-router.use(cors());
 router.post('/',async(req,res)=>{
     try {
         const {email,password} = req.body;

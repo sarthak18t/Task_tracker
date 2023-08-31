@@ -10,6 +10,7 @@ const updatePriorityLevel = async (priorityLevel) => {
     for (const task of tasks) {
       task.priorityLevel++;
       await task.save();
+      console.log("223e23")
     }
   } catch (error) {
     console.log(error);
@@ -18,7 +19,9 @@ const updatePriorityLevel = async (priorityLevel) => {
 
 router.post("/", auth, async (req, res) => {
   try {
+    console.log("1")
     const { title, description, date, priorityLevel } = req.body;
+    console.log("2")
     const currDate = new Date();
     const dueDate = new Date(date);
     console.log(currDate);
@@ -32,14 +35,16 @@ router.post("/", auth, async (req, res) => {
         .status(400)
         .json({ error: "Priority level must be greater than 0" });
     }
-    const sameTitle = await Task.find({ title });
+    const sameTitle = await Task.findOne({ title });
+    console.log(sameTitle)
     if (sameTitle && !sameTitle.completed) {
       return res
         .status(400)
         .json({ error: "Title already exists which is not completed yet" });
     }
+    console.log("4")
     await updatePriorityLevel(priorityLevel);
-    const task = new Task({ title, description, dueDate, priorityLevel });
+    const task = new Task({ title, description, date, priorityLevel });
     await task.save();
     return res.status(201).json({ message: "Task added successfully" });
   } catch (error) {
