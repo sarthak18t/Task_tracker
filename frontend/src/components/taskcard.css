@@ -24,24 +24,41 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #333; /* Text color */
+    color: #333; 
   }
   
   .card-description {
     font-size: 14px;
-    color: #666; /* Text color */
+    color: #666; 
   }
   
   .card-date {
     font-size: 12px;
-    color: #888; /* Text color */
+    color: #888;
   }
   
   .card-priority {
     font-size: 16px;
     font-weight: bold;
-    color: #007bff; /* Text color for priority */
+    color: #007bff;
   }
-  
-  /* Add more styles as needed */
-  
+  .delimg{
+    height: 25px;
+    width: 25px;
+  }
+
+  .card-btn {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .card-btn button {
+    margin-right: 10px;
+  }
+
+  .btn2{
+    background-color: #ddd;
+  }
+  .btn2:hover{
+    background-color:#888;
+  }

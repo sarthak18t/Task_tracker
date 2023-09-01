@@ -61,7 +61,8 @@ router.get('/:id', async (req, res) => {
     console.log("1")
     const taskId = req.params.id;
     console.log('2')
-    const task = await Task.findById(taskId);
+    console.log(await req.id)
+    const task = await Task.findOne({ _id: taskId, user: req.id });
     console.log('3')
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
@@ -78,7 +79,6 @@ router.put("/:taskID", auth, async (req, res) => {
   try {
     const { title, description, date, priorityLevel } = req.body;
     const taskID = req.params.taskID;
-
     const task = await Task.findOne({ _id: taskID, user: req.id });
 
     if (!task) {
