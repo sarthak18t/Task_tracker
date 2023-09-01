@@ -40,8 +40,9 @@ const HomePage = ({ authenticated, setAuthenticated }) => {
       const result = await response.text();
       const parseResult = JSON.parse(result);
       if (parseResult.message === "user loggedin successfully") {
-        console.log(parseResult.token);
+        const user = parseResult.user
         sessionStorage.setItem("auth", parseResult.token);
+        sessionStorage.setItem("userName" , user.userName)
         setAuthenticated(true);
         setActiveTab("");
       }

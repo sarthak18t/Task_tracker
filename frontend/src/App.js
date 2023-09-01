@@ -4,6 +4,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import DashBoard from './pages/DashBoard';
+import AddTask from './pages/AddTask'
 import Navbar from './components/Navbar';
 import { useState } from 'react';
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<DashBoard authenticated={authenticated} setAuthenticated={setAuthenticated}/>}/>
         <Route path='/login' element={<HomePage authenticated={authenticated} setAuthenticated={setAuthenticated} />}/>
+        <Route path='/addTask' element = {<AddTask/>}/>
       </Routes>
      </Router>
     </div>

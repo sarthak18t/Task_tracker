@@ -1,8 +1,22 @@
-.scroll-menu-container {
-  width: 100%;
-  overflow: auto;
-  border-radius: 8px;
-  margin-top: 75px;
+/* horizontalScrollbar.css */
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button button {
+  background-color: cadetblue;
+  border: 1px solid black;
+  margin:20px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 200px;
+  transition: background-color 0.3s ease;
+}
+
+.button button:hover {
+  background-color: white;
+  color: cadetblue;
 }
 
 .scroll-menu {

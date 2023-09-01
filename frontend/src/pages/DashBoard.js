@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./dashboard.css";
+import {Navigate} from 'react-router-dom'
 import HorizontalScrollbar from "../components/HorizontalScrollbar";
 const DashBoard = ({ authenticated, setAuthenticated }) => {
-  const [tasks,setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]);
+
+  const handleClick = (e)=>{
+    e.preventDefault();
+    window.location.href = '/addtask'
+}
+
   useEffect(() => {
     if (authenticated) {
       var myHeaders = new Headers();
       const token = sessionStorage.getItem("auth");
-      myHeaders.append(
-        "Authorization",
-        `Bearer ${token}`
-      );
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
       var requestOptions = {
         method: "GET",
@@ -19,21 +23,22 @@ const DashBoard = ({ authenticated, setAuthenticated }) => {
       };
 
       fetch("http://localhost:3001/task", requestOptions)
-        .then(
-          (response) => response.text()
-        )
+        .then((response) => response.text())
         .then((result) => {
-          const parseData = JSON.parse(result)
-          setTasks(parseData.tasks)
+          const parseData = JSON.parse(result);
+          setTasks(parseData.tasks);
         })
         .catch((error) => console.log("error", error));
     }
-  },[authenticated]);
+  }, [authenticated]);
   return (
     <div>
       {authenticated ? (
         <div>
-          <HorizontalScrollbar tasks={tasks} setTasks={setTasks}/>
+          <div className="button">
+            <button onClick={(e)=>handleClick(e)}>Add task</button>
+          </div>
+          <HorizontalScrollbar tasks={tasks} setTasks={setTasks} />
         </div>
       ) : (
         <div className="not-auth">
