@@ -8,7 +8,7 @@ const HorizontalScrollbar = ({ tasks, setTasks }) => (
       <ul className="scroll-menu">
         {tasks.map((task, index) => (
           <li key={index} className="scroll-menu-item">
-            <TaskCard task={task} />
+            <TaskCard task={task}/>
           </li>
         ))}
       </ul>

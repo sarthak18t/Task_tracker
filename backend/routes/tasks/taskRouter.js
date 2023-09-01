@@ -56,9 +56,27 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    console.log("1")
+    const taskId = req.params.id;
+    console.log('2')
+    const task = await Task.findById(taskId);
+    console.log('3')
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    return res.status(200).json(task);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router.put("/:taskID", auth, async (req, res) => {
   try {
-    const { title, description, date, completed } = req.body;
+    const { title, description, date, priorityLevel } = req.body;
     const taskID = req.params.taskID;
 
     const task = await Task.findOne({ _id: taskID, user: req.id });
@@ -70,7 +88,8 @@ router.put("/:taskID", auth, async (req, res) => {
     task.title = title;
     task.description = description;
     task.date = date;
-    task.completed = completed;
+    task.priorityLevel = priorityLevel
+    
     
     await task.save();
 

@@ -7,6 +7,7 @@ import DashBoard from './pages/DashBoard';
 import AddTask from './pages/AddTask'
 import Navbar from './components/Navbar';
 import { useState } from 'react';
+import UpdateTask from './pages/UpdateTask';
 function App() {
   const [authenticated, setAuthenticated] = useState(sessionStorage.getItem("auth")!== null);
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<DashBoard authenticated={authenticated} setAuthenticated={setAuthenticated}/>}/>
         <Route path='/login' element={<HomePage authenticated={authenticated} setAuthenticated={setAuthenticated} />}/>
         <Route path='/addTask' element = {<AddTask/>}/>
+        <Route path='/updatetask/:taskId' element={<UpdateTask/>}/>
       </Routes>
      </Router>
     </div>
